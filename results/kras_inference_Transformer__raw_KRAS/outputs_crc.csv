@@ -1,0 +1,16 @@
+,patient,ground_truth,predictions,logits,correct,prediction
+0,TCGA-AA-3492-01A-01-TS1,0,,"tensor(-0.2093, device='cuda:0')",1,0.0
+1,TCGA-AA-3715-01A-01-BS1,0,,"tensor(-0.1826, device='cuda:0')",1,0.0
+2,TCGA-AA-3715-01A-01-TS1,0,,"tensor(-0.1973, device='cuda:0')",1,0.0
+3,TCGA-AA-A022-01A-01-BS1,1,,"tensor(-0.1613, device='cuda:0')",0,0.0
+4,TCGA-AA-A022-01A-02-BS2,1,,"tensor(-0.2331, device='cuda:0')",0,0.0
+5,TCGA-AY-5543-01A-01-TS1,0,,"tensor(-0.1899, device='cuda:0')",1,0.0
+6,TCGA-CM-4748-01A-01-BS1,1,,"tensor(-0.1705, device='cuda:0')",0,0.0
+7,TCGA-CM-4748-01A-01-TS1,0,,"tensor(-0.2082, device='cuda:0')",1,0.0
+8,TCGA-DM-A1D6-01A-02-TSB,1,,"tensor(-0.2288, device='cuda:0')",0,0.0
+9,TCGA-F4-6855-01A-01-BS1,0,,"tensor(-0.2091, device='cuda:0')",1,0.0
+10,TCGA-F4-6855-01A-01-TS1,1,,"tensor(-0.2015, device='cuda:0')",0,0.0
+11,TCGA-G4-6320-01A-01-BS1,1,,"tensor(-0.1642, device='cuda:0')",0,0.0
+12,TCGA-G4-6320-01A-01-TS1,0,,"tensor(-0.2218, device='cuda:0')",1,0.0
+13,TCGA-G4-6586-01A-01-BS1,0,,"tensor(-0.0969, device='cuda:0')",1,0.0
+14,TCGA-G4-6586-01A-01-TS1,0,,"tensor(-0.1705, device='cuda:0')",1,0.0

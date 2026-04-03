@@ -1,0 +1,6 @@
+,patient,ground_truth,predictions,logits,correct,prediction
+0,TCGA-50-8460-01A-01-BS1,0,,"tensor([0.0946, 0.7086], device='cuda:0')",0,1.0
+1,TCGA-50-8460-01A-01-TS1,1,,"tensor([-0.0225,  0.7554], device='cuda:0')",1,1.0
+2,TCGA-67-6215-01A-01-BS1,0,,"tensor([-0.0029,  0.6565], device='cuda:0')",0,1.0
+3,TCGA-67-6215-01A-01-TS1,1,,"tensor([-0.0943,  0.6644], device='cuda:0')",1,1.0
+4,TCGA-67-6215-01Z-00-DX1,1,,"tensor([-0.1234,  0.6634], device='cuda:0')",1,1.0

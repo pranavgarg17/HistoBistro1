@@ -103,21 +103,54 @@ def main(cfg):
         fold_path = Path(data_config[train_cohorts]['folds']) / f"{cfg.target}_{cfg.folds}folds"
         fold_path.mkdir(parents=True, exist_ok=True)
         
+        # --------------------------------------------------------
     # split data stratified by the labels
-    skf = StratifiedKFold(n_splits=cfg.folds, shuffle=True, random_state=cfg.seed)
-    patient_df = data.groupby('PATIENT').first().reset_index()
-    target_stratisfy = cfg.target if type(cfg.target) is str else cfg.target[0]
-    splits = skf.split(patient_df, patient_df[target_stratisfy])
-    splits = list(splits)
+    # --------------------------------------------------------
 
-    for k in range(cfg.folds):
-        # read split from csv-file if exists already else save split to csv
-        if Path(fold_path / f'fold{k}_train.csv').exists():
-            train_idxs = pd.read_csv(fold_path / f'fold{k}_train.csv', index_col='Unnamed: 0').index
-            val_idxs = pd.read_csv(fold_path / f'fold{k}_val.csv', index_col='Unnamed: 0').index
-            test_idxs = pd.read_csv(fold_path / f'fold{k}_test.csv', index_col='Unnamed: 0').index
+    patient_df = data.groupby('PATIENT').first().reset_index()
+    target_stratify = cfg.target if isinstance(cfg.target, str) else cfg.target[0]
+
+    value_counts = patient_df[target_stratify].value_counts()
+
+    if cfg.folds == 1:
+        splits = [(list(range(len(patient_df))), [])]
+
+    elif value_counts.min() < 2:
+        print("⚠️ Warning: Not enough samples per class for stratified split. Using KFold.")
+        from sklearn.model_selection import KFold
+        kf = KFold(n_splits=cfg.folds, shuffle=True, random_state=cfg.seed)
+        splits = list(kf.split(patient_df))
+
+    else:
+        skf = StratifiedKFold(n_splits=cfg.folds, shuffle=True, random_state=cfg.seed)
+        splits = list(skf.split(patient_df, patient_df[target_stratify]))
+
+    # --------------------------------------------------------
+    # training loop
+    # --------------------------------------------------------
+
+    num_folds = cfg.folds if cfg.folds > 1 else 1
+
+    for k in range(num_folds):
+
+        if cfg.folds == 1:
+            train_idxs = splits[0][0]
+            val_idxs = splits[0][0]
+            test_idxs = splits[0][0]
+
         else:
-            train_idxs, val_idxs = train_test_split(splits[k][0], stratify=patient_df.iloc[splits[k][0]][target_stratisfy], random_state=cfg.seed)
+            train_idxs = splits[k][0]
+
+            # simple split (no stratify → avoids crash)
+            train_idxs, val_idxs = train_test_split(
+                train_idxs,
+                test_size=0.2,
+                random_state=cfg.seed
+            )
+
+            test_idxs = splits[k][1]
+
+    
             patient_df['PATIENT'][train_idxs].to_csv(fold_path / f'folds{k}_train.csv')
             patient_df['PATIENT'][val_idxs].to_csv(fold_path / f'folds{k}_val.csv')
             patient_df['PATIENT'][test_idxs].to_csv(fold_path / f'folds{k}_test.csv')

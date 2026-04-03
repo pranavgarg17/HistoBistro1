@@ -1,0 +1,54 @@
+config: !!python/object:argparse.Namespace
+  bs: 1
+  clini_info: {}
+  cohorts: []
+  criterion: BCEWithLogitsLoss
+  data_config: data_config.yaml
+  ext_cohorts:
+  - crc
+  feats: ctranspath
+  folds: 5
+  input_dim: 768
+  label_dict:
+    mutated: 1
+    wildtype: 0
+  logging_name: kras_inference_Transformer__raw_KRAS
+  lr: 2.0e-05
+  lr_scheduler: CosineAnnealingLR
+  lr_scheduler_config:
+    T_max: 100
+  model: Transformer
+  model_config: {}
+  model_path: CancerCellCRCTransformer/trained_models/KRAS_CRC_model.pth
+  name: kras_inference
+  norm: raw
+  num_classes: 1
+  num_epochs: 100
+  num_samples: null
+  num_tiles: -1
+  optimizer: AdamW
+  pad_tiles: false
+  pos_weight: !!python/object/apply:torch._utils._rebuild_tensor_v2
+  - !!python/object/apply:torch.storage._load_from_bytes
+    - !!binary |
+      gAKKCmz8nEb5IGqoUBkugAJN6QMugAJ9cQAoWBAAAABwcm90b2NvbF92ZXJzaW9ucQFN6QNYDQAA
+      AGxpdHRsZV9lbmRpYW5xAohYCgAAAHR5cGVfc2l6ZXNxA31xBChYBQAAAHNob3J0cQVLAlgDAAAA
+      aW50cQZLBFgEAAAAbG9uZ3EHSwR1dS6AAihYBwAAAHN0b3JhZ2VxAGN0b3JjaApGbG9hdFN0b3Jh
+      Z2UKcQFYDgAAADk1NjIyMTAyMjIyMTc2cQJYAwAAAGNwdXEDSwFOdHEEUS6AAl1xAFgOAAAAOTU2
+      MjIxMDIyMjIxNzZxAWEuAQAAAAAAAAAAAIA/
+  - 0
+  - !!python/tuple
+    - 1
+  - !!python/tuple
+    - 1
+  - false
+  - !!python/object/apply:collections.OrderedDict
+    - []
+  project: kras_prediction
+  save_dir: ./logs
+  seed: 42
+  stop_criterion: loss
+  target: KRAS
+  task: binary
+  val_check_interval: 500
+  wd: 2.0e-05

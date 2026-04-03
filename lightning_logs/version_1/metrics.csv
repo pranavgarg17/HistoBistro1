@@ -1,0 +1,2 @@
+loss/test,acc/test,auroc/test,f1/test,precision/test,recall/test,specificity/test,epoch,step
+0.6802374720573425,0.6000000238418579,0.5185185074806213,0.0,0.0,0.0,1.0,0,0

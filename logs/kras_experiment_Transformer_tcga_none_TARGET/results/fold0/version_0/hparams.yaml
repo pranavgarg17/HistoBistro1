@@ -1,0 +1,37 @@
+config: !!python/object:argparse.Namespace
+  bs: 1
+  clini_info: {}
+  cohorts:
+  - tcga
+  criterion: CrossEntropyLoss
+  data_config: data_config.yaml
+  ext_cohorts: []
+  feats: ctranspath
+  folds: 1
+  input_dim: 768
+  label_dict:
+    negative: 0
+    positive: 1
+  logging_name: kras_experiment_Transformer_tcga_none_TARGET
+  lr: 2.0e-05
+  lr_scheduler: CosineAnnealingLR
+  lr_scheduler_config:
+    T_max: 100
+  model: Transformer
+  model_config: {}
+  name: kras_experiment
+  norm: none
+  num_classes: 2
+  num_epochs: 100
+  num_samples: null
+  num_tiles: -1
+  optimizer: AdamW
+  pad_tiles: false
+  project: histobistro_ctranspath
+  save_dir: ./logs
+  seed: 42
+  stop_criterion: auroc
+  target: TARGET
+  task: multiclass
+  val_check_interval: 5
+  wd: 2.0e-05
